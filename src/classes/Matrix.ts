@@ -281,4 +281,18 @@ export default class Matrix extends Array<MatrixRow> {
 			bottom: (M: Matrix) => self.merge_bottom(M),
 		};
 	}
+	get [Symbol.toStringTag]() {
+		return `${this.rows}x${this.cols}`;
+	}
+	toString(): string {
+		return `[${Array.prototype.toString.call(
+			this.map((row) => `[${Array.prototype.toString.call(row)}]`)
+		)}]`;
+	}
+	static fromArray(arr: number[][]) {
+		return new Matrix(...arr);
+	}
+	static fromString(arr: string) {
+		return Matrix.fromArray(JSON.parse(arr));
+	}
 }
