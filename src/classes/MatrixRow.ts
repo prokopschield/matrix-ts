@@ -8,22 +8,20 @@
  */
 
 export default class MatrixRow extends Array<number> {
-	constructor(...args: number[]) {
-		super(args.length);
-		for (let i = 0; i < args.length; ++i) {
-			this[i] = args[i] || 0;
+	init(vals: (number | bigint | string)[] = this) {
+		for (let i = 0; i < vals.length; ++i) {
+			this[i] = Number(vals[i]) || 0;
 		}
+	}
+	constructor(...args: (number | bigint | string)[]) {
+		super(args.length);
+		this.init(args);
 	}
 	get cols() {
 		return this.length;
 	}
 	set cols(n) {
-		if (n < this.length) {
-			this.length = n;
-		} else {
-			while (n > this.length) {
-				this.push(0);
-			}
-		}
+		this.length = n;
+		this.init();
 	}
 }
