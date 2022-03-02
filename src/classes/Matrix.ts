@@ -17,14 +17,16 @@ export default class Matrix extends Array<MatrixRow> {
 				(row) => new MatrixRow(...(row instanceof Array ? row : [row]))
 			)
 		);
+
 		// make sure matrix is complete
-		for (let i = 0; i < this.rows; ++i) {
-			if (this[i].length > this.cols) {
-				this.cols = this[i].length;
+		let cols = 0;
+		for (let i = 0; i < this.length; ++i) {
+			let n = this[i].length;
+			if (n > cols) {
+				cols = n;
 			}
 		}
-		// fix Matrix.unit(2).merge_top(Matrix.unit(4))
-		this.cols = this.cols;
+		this.cols = cols;
 	}
 	/** number of columns of the matrix */
 	get cols() {
